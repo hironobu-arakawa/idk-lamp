@@ -1,15 +1,89 @@
 # idk-lamp
 
-A tiny UI signal that indicates when an AI stops deciding.
+A design attitude that makes AI abstention explicit.
+
+**idk-lamp** is a deliberately minimal design signal that allows AI systems  
+to explicitly say **“I don’t know”** — and stop deciding.
+
+It marks the boundary where automated judgment must pause  
+and responsibility returns to humans.
 
 This is not a product.  
+This is not a decision system.  
+
 This is a sign.
 
 ---
 
-## Quick Start (CDN)
+## Definition
 
-Just include the script and use the custom element.
+**idk-lamp** is a small UI indicator that represents **AI abstention**.
+
+When the lamp is on, the system is not failing —  
+it is explicitly **refusing to decide** due to uncertainty, missing context,  
+or undefined responsibility.
+
+---
+
+## The Problem
+
+Modern AI systems are optimized to always produce an answer.
+
+- They do not naturally abstain  
+- They rarely say “I don’t know”  
+- Output is often mistaken for certainty  
+
+As a result, decisions may silently shift from humans to systems  
+without a clear handoff of responsibility.
+
+---
+
+## Principle
+
+idk-lamp is based on a single principle:
+
+> **When responsibility is unclear, AI must stop deciding.**
+
+Instead of forcing confidence, the system emits a visible signal  
+that judgment has been deferred.
+
+No explanation.  
+No justification.  
+No optimization.
+
+Just a boundary.
+
+---
+
+## Why now?
+
+- AI systems are increasingly embedded in decision loops  
+- Hallucination and overconfidence remain unsolved problems  
+- Safety-critical and socio-technical domains are expanding  
+- Regulations emphasize accountability and human oversight  
+- Most systems still lack explicit abstention mechanisms  
+
+idk-lamp exists to make *non-decision* visible.
+
+---
+
+## Conceptual Mapping (Non-normative)
+
+idk-lamp does **not** claim compliance with any regulation or standard.  
+This table shows **conceptual correspondences** with global AI governance discussions.
+
+| idk-lamp concept            | Related global framework                   |
+|----------------------------|--------------------------------------------|
+| Abstention / refusal       | NIST AI RMF – Measure / Manage             |
+| Human fallback             | EU AI Act – Human Oversight                |
+| Boundary of applicability  | ISO/IEC 42001 – AI system scope            |
+| Non-decision visibility    | Accountability & auditability discussions |
+
+This is a translation layer — not a certification claim.
+
+---
+
+## Example (UI)
 
 ```html
 <script src="https://idk-lamp.org/dist/idk-lamp.min.js"></script>
@@ -17,105 +91,8 @@ Just include the script and use the custom element.
 <idk-lamp state="idk"></idk-lamp>
 ```
 
-No build tools.  
-No dependencies.
-
----
-
-## States
-
-`idk-lamp` has two states.
-
-```html
-<idk-lamp state="active"></idk-lamp>
-<idk-lamp state="idk"></idk-lamp>
-```
-
-- `active` (default): normal / confident state  
-- `idk`: AI does not decide (uncertain)
-
-The meaning is intentionally minimal.
-
----
-
-## Interactive (Optional)
-
-For demos or prototypes, you can enable interaction.
-
-```html
-<idk-lamp interactive></idk-lamp>
-```
-
-When `interactive` is set:
-- Click toggles the state
-- `Enter` / `Space` toggles the state
-
-This is optional and not required for normal use.
-
----
-
-## Customization (CSS Variables)
-
-You can adjust size and colors via CSS variables.
-
-```css
-idk-lamp {
-  --size: 64px;
-  --border-width: 6px;
-  --border-color: #333;
-
-  --color-active: #007AFF; /* blue */
-  --color-idk: #D9A404;    /* low-saturation amber */
-}
-```
-
-No JavaScript configuration is required.
-
----
-
-## Accessibility
-
-- Respects `prefers-reduced-motion`
-- Keyboard operable when `interactive` is enabled
-- No sound, no alert, no forced attention
-
-This component is designed to be quiet.
-
----
-
-## Design Notes
-
-- No face  
-- No voice  
-- No opinion  
-
-Only:
-- boundary
-- color
-- light
-
 ---
 
 ## License
 
-This work is released under **CC0 1.0 Universal**.
-
-You can use it for any purpose,  
-commercial or non-commercial,  
-without attribution.
-
----
-
-## What this is / is not
-
-**This is:**
-- a small UI signal
-- a reusable visual sign
-- a boundary marker
-
-**This is not:**
-- an AI product
-- a decision engine
-- a safety guarantee
-
-Use it freely.
+CC0 1.0 Universal
