@@ -96,3 +96,24 @@ This is a translation layer — not a certification claim.
 ## License
 
 CC0 1.0 Universal
+
+---
+
+## Context
+
+This project is designed as a practical signal that marks
+the boundary where AI systems must stop deciding
+and defer responsibility to humans.
+
+- idk-lamp (official site)  
+  https://idk-lamp.org/
+
+This work originates from ongoing exploration of
+design, responsibility, and boundaries
+in AI-assisted systems.
+
+- VCDesign  
+  https://vcdesign.org/
+
+This repository can be used and understood independently.  
+No prior knowledge is required.
