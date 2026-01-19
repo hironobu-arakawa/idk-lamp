@@ -1,0 +1,67 @@
+ai_human_boundary:
+  meta:
+    name: "ai-human-boundary"
+    description: "AIと人が一緒に価値を選ぶための境界ガイド"
+    core_premise: "AI → 人 ではなく、AI ＋ 人 → 価値"
+    role: "ルールや実装仕様ではなく、AI時代に人が壊れないための理解のガイド"
+    target_scope: "Decision Closureの外側にある「人間の意思決定レイヤー」"
+
+  core_principles:
+    uncertainty: "AIは不確実性を共有できない（計算はできても、一緒に悩み・賭けることはできない）"
+    omission: "AIの回答は、不確実性（迷い・責任）が省略されている"
+    responsibility: "行動の責任は常に人間にある（AIは共犯者になれない）"
+    value: "価値判断は人間固有の領域である"
+    role: "AIは補助であって、代替ではない"
+
+  human_decision_layer:
+    description: "AIと向き合う人間側に必要な2つの構造"
+    components:
+      human_idk_lamp:
+        name: "人間側のidk-lamp"
+        definition: "「今は判断できない」「決められない」を表明するシグナル"
+        purpose:
+          - "自分へのメタ認知（無理に決めない）"
+          - "AIへのシグナル（判断を閉じさせない）"
+          - "チームへの共有（責任の暴走を防ぐ）"
+        triggers:
+          - "判断根拠が薄い"
+          - "未来の影響が読めない"
+          - "価値の選択が絡む"
+          - "AIの回答が滑らかすぎて不安な時"
+      
+      meta_cognition:
+        name: "不確実性のメタ認知"
+        rule: "「AIの回答は整っているが、リスクや迷いが捨象されている」と思い出すこと"
+
+  action_layer_axes:
+    description: "AIと人が行動に移る際の最小構造（3つの軸）"
+    axis_1:
+      name: "知識 (Knowledge)"
+      states: ["知っている（確認・整理）", "知らない（きっかけ・高不確実性）"]
+    axis_2:
+      name: "判断 (Judgment)"
+      states: ["提案のまま行動（省略）", "人が判断した（責任引き受け）"]
+      rule: "どちらを選んでも、結果責任は人間にある"
+    axis_3:
+      name: "限界 (Limit)"
+      state: "人間自身もギブアップした"
+      rule: "人間がギブアップした判断は、AIも閉じてはいけない"
+
+  relationship_with_decision_closure:
+    concept: "上下関係ではなく、役割分担（相互補完）"
+    comparison:
+      ai_human_boundary:
+        target: "人間"
+        role: "「立つ構造」：人間がどこまで引き受けるか、どこで止まるか"
+        output: "人間の立ち位置と覚悟"
+      decision_closure:
+        target: "AI"
+        role: "「止まる構造」：AIがどこまで踏み込めるか、どこで閉じるか"
+        output: "AI-Closed / Human-Closed"
+    synthesis: "AIが止まり（DC）、人間が正しく立つ（Boundary）ことで協働が成立する"
+
+  references:
+    - "docs/01_human-idk-lamp.md"
+    - "docs/02_uncertainty.md"
+    - "docs/03_action-layer.md"
+    - "docs/04_relationship-with-decision-closure.md"

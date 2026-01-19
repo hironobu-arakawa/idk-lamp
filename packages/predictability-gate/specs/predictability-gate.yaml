@@ -1,0 +1,100 @@
+predictability_gate:
+  meta:
+    name: "Predictability Gate"
+    description: "AIモデル構築前に、その判断をAIに委ねてよいかを決定するための運用上の関門"
+    core_question: "この判断を、AI に委ねてよいか？"
+    target_scope: "主に数値時系列データを扱うAI案件（非構造化データは別ルートへ）"
+    role: "精度ではなく、責任・安全・予測可能性を担保するための構造"
+
+  core_principles:
+    - "精度よりも責任を優先する"
+    - "「当たるか」より「外したらどうなるか」を問う"
+    - "不可逆な見逃しは、AIに委ねてはならない"
+    - "最終判断は、必ず人が引き受ける"
+
+  evaluation_gates:
+    description: "48〜72時間以内に評価される6つの判断基準"
+    items:
+      G1:
+        id: "G1"
+        name: "情報量 (Information Content)"
+        question: "数値時系列に、予測に足る情報が含まれているか"
+        metrics: ["ターゲットのエントロピー", "相互情報量の総和"]
+      
+      G2:
+        id: "G2"
+        name: "業務許容下限 (Business Tolerance)"
+        question: "誤判定時に「安全側に倒れる」「判断保留できる」逃げ道があるか"
+        examples: ["安全側へのフォールバック", "意思決定の保留", "人間による確認"]
+      
+      G3:
+        id: "G3"
+        name: "時序整合 (Temporal Consistency)"
+        question: "時系列CVやシャッフル検証により、リークがないか"
+        checks: ["時系列クロスバリデーション", "シャッフルによる劣化確認"]
+      
+      G4:
+        id: "G4"
+        name: "代理変数の可能性 (Proxy Feature Potential)"
+        question: "ラグ・滞留・比率・ロールアップ等で改善余地があるか"
+      
+      G5:
+        id: "G5"
+        name: "現場依存度＋不可逆性 (Irreversibility)"
+        priority: "Critical / Override"
+        question: "見逃しが、安全・品質・法規・資産に対して不可逆な影響を与えないか"
+        rule: "G5の見逃しが不可逆な場合、他のスコアに関わらず採用しない（絶対ルール）"
+        risk_categories:
+          safety: ["挟まれ・巻き込まれ", "火傷", "漏洩", "暴走状態"]
+          quality: ["市場流出", "リコール", "ブランド毀損"]
+          regulation: ["環境規制", "労働安全", "医療/食品コンプライアンス"]
+          assets: ["設備の破壊", "長期停止"]
+
+      G6:
+        id: "G6"
+        name: "ROI (Rough ROI)"
+        question: "便益と運用コストのバランスが取れているか"
+
+  process_sop:
+    timeline: "48-72 hours"
+    steps:
+      day_0: 
+        - "ケースカード作成（ターゲットKPI、評価期間）"
+        - "難易度マップ作成（データ構造、現場依存度）"
+      day_0_1:
+        - "データ抽出"
+        - "MI（相互情報量）/ CV（クロスバリデーション）準備"
+      day_1_3:
+        - "G1〜G6評価"
+        - "G5オーバーライドチェック（最優先）"
+        - "オペレーターコメント取得"
+      day_3:
+        - "決定レビュー"
+
+  decisions:
+    outcomes:
+      proceed:
+        label: "進める"
+        action: "シャドー運用やA/Bテストへ"
+      limited_pilot:
+        label: "限定パイロット"
+        action: "限定範囲での検証とデータ改善"
+      stop:
+        label: "やめる"
+        action: "予測可能性または価値が不足しているため中止"
+      separate:
+        label: "別案件化"
+        action: "非構造データ／人判断前提の専用ルート（ハンドオーバー）へ"
+
+  handover_policy:
+    condition: "非構造化データ（音、画像、感覚）を含む場合"
+    requirements:
+      - "数値時系列だけでは不可逆的な見逃しを防げないことが特定されている"
+      - "権限と制御（誰が止めるか）が定義されている"
+      - "ロールバック手順が確立されている"
+      - "初期デプロイのスコープが制限されている"
+
+  references:
+    - "docs/02_gate_definition.md"
+    - "docs/05_irreversibility.md"
+    - "docs/06_sop_numeric.md"
