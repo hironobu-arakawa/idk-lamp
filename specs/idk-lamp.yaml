@@ -1,0 +1,92 @@
+idk_lamp:
+  meta:
+    name: "idk-lamp"
+    description: "不確実性や価値判断が絡む場面で、判断を閉じずに止めるための明示シグナル"
+    core_premise: "AIの滑らかな回答が責任の省略につながる時、人が Decision Closure を止める"
+    role: "判断停止（Decision Closureの抑制）と責任の所在を明確化する運用上の境界"
+    target_scope: "AI支援の意思決定全般（要件定義、運用判断、リスク評価など）"
+
+  concept:
+    definition: "『今は判断できない／決められない』を明示し、判断の閉鎖を回避するシグナル"
+    purpose:
+      - "不確実性を共有する"
+      - "責任の暴走を防ぐ"
+      - "必要な追加情報を引き出す"
+    non_goals:
+      - "最適解の提示"
+      - "リスクの定量評価"
+      - "AIモデル設計や実装指示"
+
+  signals:
+    format:
+      - "IDK-LAMP: Decision Closure停止（RCA/RP未確定）"
+      - "IDK-LAMP: RCA/RP決定待ち"
+      - "IDK-LAMP: RCA/RP再設計が必要"
+    requirements:
+      - "誰が点灯したか（責任者名）"
+      - "点灯理由（不確実性の種類）"
+      - "次のアクション（何が揃えば解除できるか）"
+
+  triggers:
+    uncertainty:
+      - "根拠が薄い、または検証不能"
+      - "未来影響が読めない"
+      - "前提が崩れる可能性が高い"
+    value_judgment:
+      - "価値の選択が絡む"
+      - "安全・品質・法規など不可逆性が絡む"
+    ai_risk:
+      - "AIの回答が滑らかすぎて疑念が残る"
+      - "責任主体が曖昧なまま結論が出そう"
+
+  decision_states:
+    states:
+      proceed:
+        label: "進める（RCA/RP確定）"
+        condition: "不確実性が解消され、RCA/RPが明示されている"
+      hold:
+        label: "保留（RCA/RP未確定）"
+        condition: "不確実性が残る、またはRCA/RPが未確定のため判断を閉じない"
+      handover:
+        label: "別ルートへ（RCA/RP再設計）"
+        condition: "RCA/RPの再設計が必要で、現行の判断ルートでは閉じられない"
+
+  human_responsibility:
+    rule: "最終判断と結果責任は必ず人が引き受ける"
+    ai_limit:
+      - "AIは点灯中に Decision Closure を閉じない"
+      - "AIは『進める』を断定しない"
+
+  process_sop:
+    steps:
+      - "点灯：IDK-LAMPを明示し、理由と不足情報を記録"
+      - "整理：追加情報の取得計画を立てる"
+      - "再評価：点灯理由が解消されたかを確認"
+      - "決定：RCA/RPの確定、またはRCA/RP再設計のための別ルート判断"
+
+  artifacts:
+    required:
+      - "点灯記録（誰が、いつ、なぜ）"
+      - "不確実性の種類と影響範囲"
+      - "解除条件と収集すべき情報"
+      - "RCA/RP決定ログ（責任者、責任引受先、決定理由）"
+
+  interfaces:
+    predictability_gate:
+      relationship: "G5など不可逆リスクが高い場合、別ルート判断の根拠として連携"
+    ai_human_boundary:
+      relationship: "人間の立ち位置を示すシグナルとして活用"
+    boa:
+      relationship: "BOAでは idk-lamp の状態が RCA / RP として実装に落とされる"
+    decision_closure:
+      relationship: "idk-lamp は人間側から Decision Closure を止めるシグナル"
+
+  examples:
+    - "品質リスクがあるが、RCA/RPが未確定のため保留"
+    - "現場の安全影響が不明なため、RCA/RP再設計の別ルートへ移管"
+
+  references:
+    - "concepts/ai-human-boundary/docs/01_human-idk-lamp.md"
+    - "specs/predictability-gate.yaml"
+    - "docs/mapping.ja.md"
+    - "docs/mapping.md"
